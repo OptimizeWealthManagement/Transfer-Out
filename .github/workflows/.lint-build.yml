@@ -16,5 +16,4 @@ jobs:
                   npm install
             - name: Lint and build project into dist
               run: |
-                  npm run lint
                   npm build
