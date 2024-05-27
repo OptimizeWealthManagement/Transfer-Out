@@ -28,3 +28,4 @@ yarn-error.log*
 
 hubspot.config.yml
 hubspot.config.yaml
+node_modules/node_modules/

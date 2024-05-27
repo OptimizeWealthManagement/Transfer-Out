@@ -1,12 +1,12 @@
-# cms-react-boilerplate [beta]
-
-Boilerplate [React](https://reactjs.org/) project for creating apps using modules on the HubSpot CMS.
-
-## *NOTE:*
-
-The `cms-react-boilerplate` legacy repository is a starting place for building and running a SPA (single page application) style React App on a HubSpot page. The React build itself is not directly connected to HubSpot.
+# Account Transfer Out Module
 
 Recently HubSpot has released "CMS JS Building Blocks" for general availability. Read documentation and [view examples here](https://github.com/HubSpot/cms-js-building-block-examples). The "building blocks" feature directly integrates React on the server and the client with HubSpot and enables building HubSpot modules in React. Further, it builds on the [HubSpot Developer Projects](https://developers.hubspot.com/docs/platform/create-a-project) system which provides CI/CD build and deploy functionality.
+
+## About
+
+When a user wishes to swap out from using Optimize to another institution we need to retrieve a few things
+- Using the users ```contact_id``` we should retrieve all of their accounts and information regarding their Wealth Planner and Portfolio Manager
+- After retriving their information the user fills out a form that kicks off a [ticket creation job](https://app.hubspot.com/design-manager/7515101/file/168397616141) in hubspot 
 
 ## Getting Started
 
@@ -24,6 +24,7 @@ For more information on local development tools, see [Local Development Tooling:
 ### Running
 - Run `npm start` or `yarn start` to automatically upload your project to `defaultPortal`.
 - Create a page from default theme, or any drag-and-drop (`dnd_area`) enabled template in your portal, and add the `app (label: React app boilerplate)` module.
+- Note: Once you run npm start, your changes will sync with the module on hubspot. If you don't want changes to go through, revert on hubspot, stop your server and do not publish
 
 ### package.json scripts
 - `start` : Builds project with webpack, uploads to your `defaultPortal` specified in `hubspot.config.yml` and watches for changes via [`@hubspot/webpack-cms-plugins/HubSpotAutoUploadPlugin`](https://www.npmjs.com/package/@hubspot/webpack-cms-plugins).
