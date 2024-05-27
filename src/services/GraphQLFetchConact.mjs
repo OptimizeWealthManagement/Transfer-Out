@@ -12,7 +12,6 @@ const GraphQLFetchContact = async ({ contact_id }) => {
 
     try {
         const response = await axios.request(config);
-        console.log('GraphQL Data response', response.data);
         if (!response.data.data.CRM.contact.firstname) {
             return false;
         }
