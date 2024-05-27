@@ -3,12 +3,10 @@ import CardRender from '../PageElements/CardRender';
 import hubspotWebhook from '../../services/hubspotWebhook';
 
 const Confirm = ({ selectedRows, contactId }) => {
-    console.log('selectedRows', selectedRows);
 
     const submitTickets = () => {
         // loop through each request and submit a unique ticket
         selectedRows.forEach((row) => {
-            console.log('row', row);
             // call the hubspot webhook
             hubspotWebhook(row, contactId);
         });

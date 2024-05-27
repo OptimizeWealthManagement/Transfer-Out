@@ -18,7 +18,6 @@ const CardRender = ({ cardData }) => {
         partialAmount: cardData.inputFields.partialAmount || '',
         transferInstructions: cardData.inputFields.transferInstructions || '',
     };
-    console.log('cardData', cardData);
     return (
         <div className="card" style={{ width: '800px', marginBottom: '10px' }}>
             <div className="card-body" style={{ textAlign: 'left' }}>

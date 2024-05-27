@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 async function hubspotWebhook(properties, contactId) {
-    console.log('hubspotWebhook properties', properties);
 
     // Add the contact ID to the properties object
     properties.contactId = contactId;
@@ -12,14 +11,12 @@ async function hubspotWebhook(properties, contactId) {
 
         // Check if the request was successful
         if (response.status === 200) {
-            console.log('Webhook triggered successfully');
             return response;
         } else {
-            console.log('Failed to trigger webhook');
+            return false;
         }
     } catch (error) {
-        console.error('An error occurred while calling the function:', error);
-        return false;
+        return error;
     }
 }
 export default hubspotWebhook;
