@@ -28,6 +28,21 @@ const hubspotConfig = ({ portal, autoupload } = {}) => {
           },
         },
         {
+          test: /\.css$/,
+          use: ['style-loader', 'css-loader'],
+        },
+        {
+          test: /\.(jpg|jpeg|png|gif)$/,
+          use: [
+            {
+              loader: 'file-loader',
+              options: {
+                name: '[path][name].[ext]',
+              },
+            },
+          ],
+        },
+        {
           test: /\.s[ac]ss$/i,
           use: [
             MiniCssExtractPlugin.loader,
@@ -53,7 +68,7 @@ const hubspotConfig = ({ portal, autoupload } = {}) => {
         portal,
         autoupload,
         src: 'dist',
-        dest: 'cms-react-boilerplate',
+        dest: 'transfer-out-form',
       }),
       new MiniCssExtractPlugin({
         filename: '[name].css',
