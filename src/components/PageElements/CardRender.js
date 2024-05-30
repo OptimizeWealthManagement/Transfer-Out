@@ -14,7 +14,7 @@ const CardRender = ({ cardData }) => {
     const inputs = {
         receivingAccountNumber: cardData.inputFields.receivingAccountNumber || '',
         receivingInsitution: cardData.inputFields.receivingInstitution || '',
-        transferType: cardData.inputFields.transferType || 'all', // set to all assuming value has never changed
+        transferType: cardData.inputFields.transferType || 'All in cash', // set to all assuming value has never changed
         partialAmount: cardData.inputFields.partialAmount || '',
         transferInstructions: cardData.inputFields.transferInstructions || '',
     };
@@ -27,8 +27,8 @@ const CardRender = ({ cardData }) => {
                 <h5 class="card-text">Receiving Account Number: {inputs.receivingAccountNumber}</h5>
                 <h5 class="card-text">Receiving Institution: {inputs.receivingInsitution}</h5>
                 <h5 class="card-text">Transfer Type: {inputs.transferType}</h5>
-                {inputs.transferType !== 'all' && <h5 class="card-text">Amount: {inputs.partialAmount}</h5>}
-                {inputs.transferType === 'all' && <h5 class="card-text">Amount: {account.marketValue}</h5>}
+                {inputs.transferType !== 'All in cash' && <h5 class="card-text">Amount: {inputs.partialAmount}</h5>}
+                {inputs.transferType === 'All in cash' && <h5 class="card-text">Amount: {account.marketValue}</h5>}
                 <h5 class="card-text">Transfer Instructions: {inputs.transferInstructions}</h5>
             </div>
         </div>

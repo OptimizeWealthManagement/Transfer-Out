@@ -43,10 +43,11 @@ const SelectClientAccounts = ({ contactData, contactId }) => {
         setClientFormSubmitted(true);
     };
 
+
     if (clientFormSubmitted) {
         return (
             <div>
-                <Confirm selectedRows={selectedAccounts} contactId={contactId} />
+                <Confirm selectedRows={selectedAccounts} contactId={contactId} contactData={contactData} />
             </div>
         );
     }
@@ -55,7 +56,7 @@ const SelectClientAccounts = ({ contactData, contactId }) => {
         <div>
             <h2>Select Client Accounts</h2>
             <div style={{ maxHeight: '500px', overflow: 'auto' }}>
-                <table className="table fs-5">
+                <table className="table fs-5" style={{ minWidth: '1400px' }}>
                     <thead style={{ backgroundColor: '#1c3258', color: 'white' }}>
                         <tr>
                             <th scope="col">Account Number</th>
@@ -139,9 +140,11 @@ const SelectClientAccounts = ({ contactData, contactId }) => {
                                                         <label htmlFor="transferType" class="form-label">
                                                             Transfer Type
                                                         </label>
-                                                        <select id="transferType" name="transferType" class="form-select" value={inputFields[row.account_number]?.transferType || 'all'} onChange={(e) => handleInputChange(e, row.account_number)}>
-                                                            <option value="partial">Partial</option>
-                                                            <option value="all">All</option>
+                                                        <select id="transferType" name="transferType" class="form-select" value={inputFields[row.account_number]?.transferType || 'All in cash'} onChange={(e) => handleInputChange(e, row.account_number)}>
+                                                            <option value="All in cash">All in cash</option>
+                                                            <option value="All in kind">All in kind</option>
+                                                            <option value="Partial">Partial</option>
+                                                            <option value="Mixed">Mixed</option>
                                                         </select>
                                                     </div>
                                                     <div
@@ -157,7 +160,7 @@ const SelectClientAccounts = ({ contactData, contactId }) => {
                                                             id="partialAmount"
                                                             className="form-control"
                                                             name="partialAmount"
-                                                            disabled={inputFields[row.account_number]?.transferType !== 'partial'} // if our transferType is not set, this value remains disabled
+                                                            disabled={inputFields[row.account_number]?.transferType !== 'Partial' && inputFields[row.account_number]?.transferType !== 'Mixed'} // if our transferType is not set, this value remains disabled
                                                             value={inputFields[row.account_number]?.partialAmount || ''}
                                                             onChange={(e) => handleInputChange(e, row.account_number)}
                                                         />
@@ -202,7 +205,15 @@ const SelectClientAccounts = ({ contactData, contactId }) => {
                     </tbody>
                 </table>
             </div>
-            <button type="button" style={{ backgroundColor: '#1c3258', width: '180px' }} className="btn btn-secondary btn-lg mr-2 btn-settings " onClick={SubmitForm} onMouseEnter={(e) => (e.target.style.backgroundColor = '#0f1f38')} onMouseLeave={(e) => (e.target.style.backgroundColor = '#1c3258')}>
+            <button
+                type="button"
+                style={{ backgroundColor: '#1c3258', width: '180px' }}
+                className="btn btn-secondary btn-lg mr-2 btn-settings "
+                onClick={SubmitForm}
+                onMouseEnter={(e) => (e.target.style.backgroundColor = '#0f1f38')}
+                onMouseLeave={(e) => (e.target.style.backgroundColor = '#1c3258')}
+                disabled={selectedRows.length === 0}
+            >
                 Continue
             </button>
         </div>

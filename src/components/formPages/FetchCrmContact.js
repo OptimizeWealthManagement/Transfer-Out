@@ -50,7 +50,7 @@ function FetchCrmContact() {
         <div>
             <h1 className="mt-4">Fetch CRM Contact</h1>
             <div className="input-group mb-4">
-                <input type="text" className="form-control" id="contactId" value={contactId} onChange={handleInputChange} />
+                <input type="text" className="form-control" id="contactId" value={contactId} onChange={handleInputChange} placeholder="Enter contact ID" />
             </div>
             {isFetchSuccessful === false ? (
                 <div className="alert alert-danger" role="alert" style={{fontSize: '14px'}}>
