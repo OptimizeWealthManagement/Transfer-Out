@@ -31,6 +31,16 @@ const SelectClientAccounts = ({ contactData, contactId }) => {
         setSelectedRows(selectedRows.includes(index) ? selectedRows.filter((i) => i !== index) : [...selectedRows, index]);
     };
 
+    const calculateTotalMarketValue = () => {
+        let totalMarketValue = 0;
+        all_accounts.forEach((account) => {
+            totalMarketValue += account.market_value;
+        });
+        return totalMarketValue;
+    };
+
+    const totalValue = calculateTotalMarketValue();
+
     // Combine inputs into an array of objects
     const SubmitForm = () => {
         // get all of the selected row information
@@ -43,10 +53,11 @@ const SelectClientAccounts = ({ contactData, contactId }) => {
         setClientFormSubmitted(true);
     };
 
+
     if (clientFormSubmitted) {
         return (
             <div>
-                <Confirm selectedRows={selectedAccounts} contactId={contactId} />
+                <Confirm selectedRows={selectedAccounts} contactId={contactId} contactData={contactData} totalValue={totalValue}/>
             </div>
         );
     }
@@ -139,9 +150,11 @@ const SelectClientAccounts = ({ contactData, contactId }) => {
                                                         <label htmlFor="transferType" class="form-label">
                                                             Transfer Type
                                                         </label>
-                                                        <select id="transferType" name="transferType" class="form-select" value={inputFields[row.account_number]?.transferType || 'all'} onChange={(e) => handleInputChange(e, row.account_number)}>
-                                                            <option value="partial">Partial</option>
-                                                            <option value="all">All</option>
+                                                        <select id="transferType" name="transferType" class="form-select" value={inputFields[row.account_number]?.transferType || 'All in cash'} onChange={(e) => handleInputChange(e, row.account_number)}>
+                                                            <option value="All in cash">All in cash</option>
+                                                            <option value="All in kind">All in kind</option>
+                                                            <option value="Partial">Partial</option>
+                                                            <option value="Mixed">Mixed</option>
                                                         </select>
                                                     </div>
                                                     <div
@@ -157,7 +170,7 @@ const SelectClientAccounts = ({ contactData, contactId }) => {
                                                             id="partialAmount"
                                                             className="form-control"
                                                             name="partialAmount"
-                                                            disabled={inputFields[row.account_number]?.transferType !== 'partial'} // if our transferType is not set, this value remains disabled
+                                                            disabled={inputFields[row.account_number]?.transferType !== 'Partial' && inputFields[row.account_number]?.transferType !== 'Mixed'} // if our transferType is not set, this value remains disabled
                                                             value={inputFields[row.account_number]?.partialAmount || ''}
                                                             onChange={(e) => handleInputChange(e, row.account_number)}
                                                         />
@@ -202,7 +215,15 @@ const SelectClientAccounts = ({ contactData, contactId }) => {
                     </tbody>
                 </table>
             </div>
-            <button type="button" style={{ backgroundColor: '#1c3258', width: '180px' }} className="btn btn-secondary btn-lg mr-2 btn-settings " onClick={SubmitForm} onMouseEnter={(e) => (e.target.style.backgroundColor = '#0f1f38')} onMouseLeave={(e) => (e.target.style.backgroundColor = '#1c3258')}>
+            <button
+                type="button"
+                style={{ backgroundColor: '#1c3258', width: '180px' }}
+                className="btn btn-secondary btn-lg mr-2 btn-settings "
+                onClick={SubmitForm}
+                onMouseEnter={(e) => (e.target.style.backgroundColor = '#0f1f38')}
+                onMouseLeave={(e) => (e.target.style.backgroundColor = '#1c3258')}
+                disabled={selectedRows.length === 0}
+            >
                 Continue
             </button>
         </div>
