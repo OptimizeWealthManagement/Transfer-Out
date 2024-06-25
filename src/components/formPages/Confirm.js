@@ -1,19 +1,22 @@
 import React from 'react';
 import CardRender from '../PageElements/CardRender';
 import hubspotWebhook from '../../services/hubspotWebhook';
+import Loading from '../PageElements/Loading';
 
-const Confirm = ({ selectedRows, contactId, contactData }) => {
+const Confirm = ({ selectedRows, contactId, contactData, totalValue }) => {
     const [submittedSuccess, setSubmittedSuccess] = React.useState(false);
+    const [isLoading, setIsLoading] = React.useState(false);
 
     const submitTickets = async () => {
         // loop through each request and submit a unique ticket
+        setIsLoading(true);
         const promises = selectedRows.map(async (row) => {
             // call the hubspot webhook
-            await hubspotWebhook(row, contactId, contactData);
+            await hubspotWebhook(row, contactId, contactData, totalValue);
         });
 
         await Promise.all(promises);
-
+        setIsLoading(false);
         setSubmittedSuccess(true);
         // once this is done set a state and render a success page
     };
@@ -22,12 +25,18 @@ const Confirm = ({ selectedRows, contactId, contactData }) => {
         return (
             <div>
                 <h1 className="mt-4">Success</h1>
-                <div className="alert alert-success" role="alert" style={{ fontSize: '14px' }}>
-                    Tickets have been submitted successfully.
-                </div>
+                <h4>Your tickets have been sent to Hubspot</h4>
             </div>
         );
-    }
+    };
+
+    if (isLoading) {
+        return (
+            <div>
+                <Loading />
+            </div>
+        );
+    };
 
     return (
         <div>

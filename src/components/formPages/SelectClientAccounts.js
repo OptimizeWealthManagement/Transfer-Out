@@ -31,6 +31,16 @@ const SelectClientAccounts = ({ contactData, contactId }) => {
         setSelectedRows(selectedRows.includes(index) ? selectedRows.filter((i) => i !== index) : [...selectedRows, index]);
     };
 
+    const calculateTotalMarketValue = () => {
+        let totalMarketValue = 0;
+        all_accounts.forEach((account) => {
+            totalMarketValue += account.market_value;
+        });
+        return totalMarketValue;
+    };
+
+    const totalValue = calculateTotalMarketValue();
+
     // Combine inputs into an array of objects
     const SubmitForm = () => {
         // get all of the selected row information
@@ -47,7 +57,7 @@ const SelectClientAccounts = ({ contactData, contactId }) => {
     if (clientFormSubmitted) {
         return (
             <div>
-                <Confirm selectedRows={selectedAccounts} contactId={contactId} contactData={contactData} />
+                <Confirm selectedRows={selectedAccounts} contactId={contactId} contactData={contactData} totalValue={totalValue}/>
             </div>
         );
     }
@@ -56,7 +66,7 @@ const SelectClientAccounts = ({ contactData, contactId }) => {
         <div>
             <h2>Select Client Accounts</h2>
             <div style={{ maxHeight: '500px', overflow: 'auto' }}>
-                <table className="table fs-5" style={{ minWidth: '1400px' }}>
+                <table className="table fs-5">
                     <thead style={{ backgroundColor: '#1c3258', color: 'white' }}>
                         <tr>
                             <th scope="col">Account Number</th>

@@ -1,9 +1,10 @@
 import axios from 'axios';
 
-async function hubspotWebhook(properties, contactId, contactData) {
+async function hubspotWebhook(properties, contactId, contactData, totalValue) {
     // Add the contact ID to the properties object
     properties.contactId = contactId;
     properties.contactData = contactData.data.CRM.contact;
+    properties.totalValue = totalValue;
 
     try {
         // Make a POST request to the HubSpot webhook URL
