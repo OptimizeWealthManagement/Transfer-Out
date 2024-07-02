@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Confirm from './Confirm';
-import { outsideBrokerageOptions } from '../constants/outsideBrokerageOptions';
 
-const SelectClientAccounts = ({ contactData, contactId }) => {
+const SelectClientAccounts = ({ contactData, contactId, brokerageTable }) => {
+    const tabelData = brokerageTable.objects;
     const accountData = contactData.data.CRM.contact.associations;
     const [inputFields, setInputFields] = useState({});
     const [selectedRows, setSelectedRows] = useState([]);
@@ -184,8 +184,8 @@ const SelectClientAccounts = ({ contactData, contactId }) => {
                                                             Receiving Institution
                                                         </label>
                                                         <select id="receivingInstitution" name="receivingInstitution" class="form-select" value={inputFields[row.account_number]?.receivingInstitution} onChange={(e) => handleInputChange(e, row.account_number)}>
-                                                            {outsideBrokerageOptions.map((option) => (
-                                                                <option value={option.value}>{option.label}</option>
+                                                            {tabelData.map((option) => (
+                                                                <option value={option.value}>{option.name}</option>
                                                             ))}
                                                         </select>
                                                     </div>
