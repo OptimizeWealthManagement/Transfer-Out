@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Confirm from './Confirm';
+import { outsideBrokerageOptions } from '../constants/outsideBrokerageOptions';
 
 const SelectClientAccounts = ({ contactData, contactId }) => {
     const accountData = contactData.data.CRM.contact.associations;
@@ -53,11 +54,10 @@ const SelectClientAccounts = ({ contactData, contactId }) => {
         setClientFormSubmitted(true);
     };
 
-
     if (clientFormSubmitted) {
         return (
             <div>
-                <Confirm selectedRows={selectedAccounts} contactId={contactId} contactData={contactData} totalValue={totalValue}/>
+                <Confirm selectedRows={selectedAccounts} contactId={contactId} contactData={contactData} totalValue={totalValue} />
             </div>
         );
     }
@@ -183,7 +183,11 @@ const SelectClientAccounts = ({ contactData, contactId }) => {
                                                         <label htmlFor="receivingInstitution" class="form-label">
                                                             Receiving Institution
                                                         </label>
-                                                        <input type="text" className="form-control" id="receivingInstitution" name="receivingInstitution" value={inputFields[row.account_number]?.receivingInstitution || ''} onChange={(e) => handleInputChange(e, row.account_number)} required />
+                                                        <select id="receivingInstitution" name="receivingInstitution" class="form-select" value={inputFields[row.account_number]?.receivingInstitution} onChange={(e) => handleInputChange(e, row.account_number)}>
+                                                            {outsideBrokerageOptions.map((option) => (
+                                                                <option value={option.value}>{option.label}</option>
+                                                            ))}
+                                                        </select>
                                                     </div>
                                                     <div
                                                         style={{
