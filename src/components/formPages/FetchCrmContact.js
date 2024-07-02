@@ -3,7 +3,7 @@ import GraphQLFetchContact from '../../services/GraphQLFetchConact.mjs';
 import SelectClientAccounts from './SelectClientAccounts';
 import Loading from '../PageElements/Loading';
 
-function FetchCrmContact() {
+function FetchCrmContact({brokerageTable}) {
     const [contactId, setContactId] = useState('');
     const [isFetchSuccessful, setIsFetchSuccessful] = useState();
     const [contactData, setContactData] = useState({});
@@ -41,7 +41,7 @@ function FetchCrmContact() {
         return (
             // Render your next form here
             <div>
-                <SelectClientAccounts contactData={contactData} contactId={contactId} />
+                <SelectClientAccounts contactData={contactData} contactId={contactId} brokerageTable={brokerageTable}/>
             </div>
         );
     }
